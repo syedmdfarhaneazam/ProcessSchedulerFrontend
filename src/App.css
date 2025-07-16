@@ -1,0 +1,297 @@
+/* Enhanced App styles with full viewport width and flexbox layout */
+#root {
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Global styles for the Job Scheduling System */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f9fafb;
+  font-size: 14px;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+code {
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Ace Editor custom styles */
+.ace_editor {
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace !important;
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+}
+
+.ace_placeholder {
+  color: #999 !important;
+  font-style: italic !important;
+}
+
+/* Animation for loading states */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom button hover effects */
+.btn-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Status indicator animations */
+.status-running {
+  position: relative;
+}
+
+.status-running::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Flexbox layout helpers */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.lg\:w-1\/2 {
+  width: 50%;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .lg\:flex-row {
+    flex-direction: column !important;
+  }
+
+  .lg\:w-1\/2 {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+  .mobile-full {
+    width: 100% !important;
+  }
+  .mobile-text-sm {
+    font-size: 0.875rem !important;
+  }
+
+  /* Reduce padding on mobile */
+  main {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-break {
+    page-break-after: always;
+  }
+}
+
+/* Focus styles for accessibility */
+.focus-ring:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Custom form styles */
+.form-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-error {
+  border-color: #ef4444;
+}
+
+.form-error:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Job card animations */
+.job-card {
+  transition: all 0.3s ease-in-out;
+}
+
+.job-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Priority indicators */
+.priority-high {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.priority-medium {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.priority-low {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+/* Status indicators */
+.status-queued {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.status-running {
+  background-color: #e0e7ff;
+  color: #5b21b6;
+}
+
+.status-success {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-failed {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* Utility classes */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shadow-soft {
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+.border-dashed {
+  border-style: dashed;
+}
+
+/* Container adjustments for full width */
+.container {
+  width: 100%;
+  max-width: none;
+}
+
+/* Ensure full width usage */
+.w-screen {
+  width: 100vw;
+}
+
+.max-w-none {
+  max-width: none;
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+  .dark-mode {
+    background-color: #1f2937;
+    color: #f9fafb;
+  }
+  .dark-mode .bg-white {
+    background-color: #374151;
+  }
+  .dark-mode .text-gray-900 {
+    color: #f9fafb;
+  }
+  .dark-mode .border-gray-300 {
+    border-color: #4b5563;
+  }
+}
