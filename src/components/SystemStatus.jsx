@@ -1,4 +1,3 @@
-// Enhanced System status component with DAG and IST information
 import ISTTimezoneHelper from "../utils/ISTTimezoneHelper";
 
 function SystemStatus({
@@ -35,7 +34,6 @@ function SystemStatus({
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* Connection Status */}
         <div className="bg-gray-50 rounded-lg p-4">
           <h3 className="text-sm font-medium text-gray-700 mb-2">Connection</h3>
           <div className="flex items-center">
@@ -51,7 +49,6 @@ function SystemStatus({
           </div>
         </div>
 
-        {/* Worker Statistics */}
         {systemStatus.workerStats && (
           <div className="bg-gray-50 rounded-lg p-4 text-black">
             <h3 className="text-sm font-medium text-gray-700 mb-2">Workers</h3>
@@ -84,7 +81,6 @@ function SystemStatus({
           </div>
         )}
 
-        {/* Scheduler Statistics */}
         {systemStatus.schedulerStats && (
           <div className="bg-gray-50 rounded-lg p-4">
             <h3 className="text-sm font-medium text-gray-700 mb-2">
@@ -123,7 +119,6 @@ function SystemStatus({
           </div>
         )}
 
-        {/* DAG Statistics */}
         {systemStatus.dagStats && (
           <div className="bg-gray-50 rounded-lg p-4">
             <h3 className="text-sm font-medium text-gray-700 mb-2">
@@ -159,7 +154,6 @@ function SystemStatus({
         )}
       </div>
 
-      {/* Enhanced Performance Metrics */}
       {systemStatus.schedulerStats && (
         <div className="mt-6">
           <h3 className="text-sm font-medium text-gray-700 mb-3">
@@ -208,7 +202,6 @@ function SystemStatus({
         </div>
       )}
 
-      {/* Worker Details */}
       {systemStatus.workerStats && systemStatus.workerStats.workers && (
         <div className="mt-6">
           <h3 className="text-sm font-medium text-gray-700 mb-3">
@@ -253,7 +246,6 @@ function SystemStatus({
         </div>
       )}
 
-      {/* System Information */}
       <div className="mt-6 pt-4 border-t border-gray-200">
         <div className="flex justify-between items-center text-xs text-gray-500">
           <span>

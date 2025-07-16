@@ -1,4 +1,3 @@
-// Error boundary component to catch and handle React errors
 import { Component } from "react";
 
 class ErrorBoundary extends Component {
@@ -7,32 +6,26 @@ class ErrorBoundary extends Component {
     this.state = { hasError: false, error: null, errorInfo: null };
   }
 
-  // Static method to update state when an error occurs
   static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI
     return { hasError: true };
   }
 
-  // Method called when an error occurs
+  // method called when an error occurs
   componentDidCatch(error, errorInfo) {
-    // Log error details
     console.error("Error caught by ErrorBoundary:", error, errorInfo);
 
-    // Update state with error details
     this.setState({
       error: error,
       errorInfo: errorInfo,
     });
   }
 
-  // Method to reset error state
   handleReset = () => {
     this.setState({ hasError: false, error: null, errorInfo: null });
   };
 
   render() {
     if (this.state.hasError) {
-      // Render fallback UI
       return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
           <div className="max-w-md w-full bg-white rounded-lg shadow-md p-6">
@@ -66,8 +59,7 @@ class ErrorBoundary extends Component {
               </p>
             </div>
 
-            {/* Error details (only in development) */}
-            {process.env.NODE_ENV === "development" && this.state.error && (
+            {import.meta.env.NODE_ENV === "development" && this.state.error && (
               <div className="mb-4">
                 <details className="bg-gray-50 rounded-md p-3">
                   <summary className="text-sm font-medium text-gray-700 cursor-pointer">
@@ -111,7 +103,6 @@ class ErrorBoundary extends Component {
       );
     }
 
-    // If no error, render children normally
     return this.props.children;
   }
 }

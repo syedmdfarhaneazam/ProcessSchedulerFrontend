@@ -1,9 +1,6 @@
-// Import shared job card component
 import JobCard from "./JobCard";
 
-// QueuedJobList component for displaying jobs waiting to be executed
 function QueuedJobList({ jobs, onDelete, loading }) {
-  // Show empty state if no jobs
   if (!jobs || jobs.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow-md p-8 text-center">
@@ -32,13 +29,10 @@ function QueuedJobList({ jobs, onDelete, loading }) {
     );
   }
 
-  // Sort jobs by priority and start time
   const sortedJobs = [...jobs].sort((a, b) => {
-    // First sort by priority (0 = high, 1 = medium, 2 = low)
     if (a.priority !== b.priority) {
       return a.priority - b.priority;
     }
-    // Then sort by start time
     return new Date(a.startTime) - new Date(b.startTime);
   });
 

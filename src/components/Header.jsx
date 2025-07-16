@@ -1,4 +1,3 @@
-// Enhanced Header component with IST timezone and DAG information
 import ISTTimezoneHelper from "../utils/ISTTimezoneHelper";
 
 function Header({
@@ -7,7 +6,6 @@ function Header({
   socketConnected = false,
   onRefresh,
 }) {
-  // Function to get connection status indicator
   const getConnectionStatus = () => {
     if (socketConnected && systemStatus.isOnline) {
       return {
@@ -65,9 +63,7 @@ function Header({
             </div>
           </div>
 
-          {/* Status and controls */}
           <div className="flex items-center space-x-6">
-            {/* Connection status */}
             <div className="flex items-center">
               <div
                 className={`w-3 h-3 ${connectionStatus.color} rounded-full mr-2`}
@@ -78,7 +74,6 @@ function Header({
               </span>
             </div>
 
-            {/* Job counts */}
             <div className="flex items-center space-x-4 text-sm text-gray-600">
               <div className="flex items-center">
                 <span className="font-medium text-blue-600">
@@ -94,7 +89,6 @@ function Header({
               </div>
             </div>
 
-            {/* Worker stats */}
             {systemStatus.workerStats && (
               <div className="flex items-center space-x-4 text-sm text-gray-600">
                 <div className="flex items-center">
@@ -112,7 +106,6 @@ function Header({
               </div>
             )}
 
-            {/* DAG Stats */}
             {systemStatus.dagStats && (
               <div className="flex items-center space-x-4 text-sm text-gray-600">
                 <div className="flex items-center">
@@ -130,7 +123,6 @@ function Header({
               </div>
             )}
 
-            {/* Refresh button */}
             <button
               onClick={onRefresh}
               className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-md transition-colors"

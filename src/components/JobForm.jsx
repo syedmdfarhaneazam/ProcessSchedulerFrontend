@@ -1,18 +1,12 @@
-"use client";
-
-// Enhanced JobForm component with IST timezone support - JavaScript and Shell only
 import { useState } from "react";
 import AceEditor from "react-ace";
 import ISTTimezoneHelper from "../utils/ISTTimezoneHelper";
-
-// Import Ace Editor modes and themes
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/mode-sh";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/theme-monokai";
 
 function JobForm({ onSubmit, loading = false, availableJobs = [] }) {
-  // Form state management
   const [formData, setFormData] = useState({
     description: "",
     codeType: "javascript",
@@ -23,18 +17,13 @@ function JobForm({ onSubmit, loading = false, availableJobs = [] }) {
     startTime: "",
     repeat: 0,
   });
-
-  // State for form validation errors
   const [errors, setErrors] = useState({});
-
-  // Handle input changes for regular form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
@@ -43,7 +32,6 @@ function JobForm({ onSubmit, loading = false, availableJobs = [] }) {
     }
   };
 
-  // Handle Ace Editor content changes
   const handleCodeChange = (value) => {
     setFormData((prev) => ({
       ...prev,
@@ -57,7 +45,6 @@ function JobForm({ onSubmit, loading = false, availableJobs = [] }) {
     }
   };
 
-  // Handle dependency input changes
   const handleDependencyChange = (index, value) => {
     const newDependencies = [...formData.dependencies];
     newDependencies[index] = value;
@@ -67,7 +54,6 @@ function JobForm({ onSubmit, loading = false, availableJobs = [] }) {
     }));
   };
 
-  // Add new dependency input field
   const addDependencyField = () => {
     setFormData((prev) => ({
       ...prev,
@@ -75,7 +61,6 @@ function JobForm({ onSubmit, loading = false, availableJobs = [] }) {
     }));
   };
 
-  // Remove dependency input field
   const removeDependencyField = (index) => {
     if (formData.dependencies.length > 1) {
       const newDependencies = formData.dependencies.filter(
@@ -88,10 +73,8 @@ function JobForm({ onSubmit, loading = false, availableJobs = [] }) {
     }
   };
 
-  // Form validation function with IST support
   const validateForm = () => {
     const newErrors = {};
-    // Required field validations
     if (!formData.description.trim()) {
       newErrors.description = "Description is required";
     }
@@ -101,7 +84,6 @@ function JobForm({ onSubmit, loading = false, availableJobs = [] }) {
     if (!formData.startTime) {
       newErrors.startTime = "Start time is required";
     } else {
-      // Convert to API format first, then validate
       const convertedTime = ISTTimezoneHelper.convertToAPIFormat(
         formData.startTime,
       );
@@ -116,11 +98,9 @@ function JobForm({ onSubmit, loading = false, availableJobs = [] }) {
         newErrors.startTime = `Start time must be at least 1 minute in the future. Current IST: ${ISTTimezoneHelper.getCurrentIST()}`;
       }
     }
-    // Validate retry policy
     if (formData.retryPolicy < 0 || formData.retryPolicy > 10) {
       newErrors.retryPolicy = "Retry policy must be between 0 and 10";
     }
-    // Validate repeat interval
     if (formData.repeat < 0) {
       newErrors.repeat = "Repeat interval cannot be negative";
     }
@@ -128,14 +108,12 @@ function JobForm({ onSubmit, loading = false, availableJobs = [] }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission with IST conversion
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
       return;
     }
 
-    // Prepare job data for API with IST conversion
     const jobData = {
       ...formData,
       startTime: ISTTimezoneHelper.convertToAPIFormat(formData.startTime),
@@ -150,10 +128,8 @@ function JobForm({ onSubmit, loading = false, availableJobs = [] }) {
     console.log("  Converted startTime:", jobData.startTime);
     console.log("  Current IST:", ISTTimezoneHelper.getCurrentIST());
 
-    // Call parent component's submit handler
     const result = await onSubmit(jobData);
 
-    // Reset form if submission was successful
     if (result && result.success) {
       setFormData({
         description: "",
@@ -170,7 +146,6 @@ function JobForm({ onSubmit, loading = false, availableJobs = [] }) {
     }
   };
 
-  // Get Ace Editor mode based on code type
   const getEditorMode = () => {
     switch (formData.codeType) {
       case "javascript":
@@ -182,7 +157,6 @@ function JobForm({ onSubmit, loading = false, availableJobs = [] }) {
     }
   };
 
-  // Get placeholder text for code editor
   const getCodePlaceholder = () => {
     switch (formData.codeType) {
       case "javascript":

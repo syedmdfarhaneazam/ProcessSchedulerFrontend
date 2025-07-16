@@ -1,6 +1,4 @@
-// JobList component for displaying jobs in queued or done state
 function JobList({ jobs, type, onDelete, loading }) {
-  // Function to format date and time for display
   const formatDateTime = (dateString) => {
     if (!dateString) return "Not set";
 
@@ -15,7 +13,6 @@ function JobList({ jobs, type, onDelete, loading }) {
     });
   };
 
-  // Function to get priority display with color coding
   const getPriorityDisplay = (priority) => {
     const priorityMap = {
       0: { label: "High", color: "bg-red-100 text-red-800" },
@@ -37,7 +34,6 @@ function JobList({ jobs, type, onDelete, loading }) {
     );
   };
 
-  // Function to get status display with appropriate styling
   const getStatusDisplay = (status) => {
     const statusMap = {
       queued: { label: "Queued", color: "bg-blue-100 text-blue-800" },
@@ -60,7 +56,6 @@ function JobList({ jobs, type, onDelete, loading }) {
     );
   };
 
-  // Function to get code type display
   const getCodeTypeDisplay = (codeType) => {
     const typeMap = {
       python: { label: "Python", icon: "🐍" },
@@ -79,9 +74,7 @@ function JobList({ jobs, type, onDelete, loading }) {
     );
   };
 
-  // Function to handle job deletion with confirmation
   const handleDelete = async (jobId, jobDescription) => {
-    // Show confirmation dialog
     const confirmed = window.confirm(
       `Are you sure you want to delete the job "${jobDescription}"?\n\nThis action cannot be undone.`,
     );
@@ -92,7 +85,6 @@ function JobList({ jobs, type, onDelete, loading }) {
     }
   };
 
-  // Function to calculate time until job execution
   const getTimeUntilExecution = (startTime) => {
     const now = new Date();
     const start = new Date(startTime);
@@ -109,7 +101,6 @@ function JobList({ jobs, type, onDelete, loading }) {
     return `${minutes}m`;
   };
 
-  // Show empty state if no jobs
   if (!jobs || jobs.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow-md p-8 text-center">

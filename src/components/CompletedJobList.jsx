@@ -1,9 +1,6 @@
-// Import shared job card component
 import JobCard from "./JobCard";
 
-// CompletedJobList component for displaying finished jobs
 function CompletedJobList({ jobs, onDelete, loading }) {
-  // Show empty state if no jobs
   if (!jobs || jobs.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow-md p-8 text-center">
@@ -32,7 +29,7 @@ function CompletedJobList({ jobs, onDelete, loading }) {
     );
   }
 
-  // Sort jobs by completion time (most recent first)
+  // sort jobs by completion time
   const sortedJobs = [...jobs].sort((a, b) => {
     const aTime = new Date(a.completedAt || a.createdAt);
     const bTime = new Date(b.completedAt || b.createdAt);

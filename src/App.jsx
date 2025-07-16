@@ -1,4 +1,3 @@
-// Enhanced main App component with full width flexbox layout
 import { useState, useEffect } from "react";
 import JobForm from "./components/JobForm";
 import JobLists from "./components/JobLists";
@@ -6,25 +5,20 @@ import Header from "./components/Header";
 import SystemStatus from "./components/SystemStatus";
 import ErrorBoundary from "./components/ErrorBoundary";
 
-// Import services
 import { jobService } from "./services/jobService";
 import { socketService } from "./services/socketService";
 
-// Import utilities
 import ISTTimezoneHelper from "./utils/ISTTimezoneHelper";
 import { updateJobInState } from "./utils/jobUtils";
 
-// Import styles
 import "./App.css";
 
 function App() {
-  // State management for jobs data
   const [jobs, setJobs] = useState({
     queued: [],
     done: [],
   });
 
-  // Enhanced state for system status with DAG support
   const [systemStatus, setSystemStatus] = useState({
     isOnline: false,
     workerStats: null,
@@ -32,21 +26,16 @@ function App() {
     dagStats: null,
   });
 
-  // State for loading and error handling
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Socket connection state
   const [socketConnected, setSocketConnected] = useState(false);
 
-  // Initialize socket connection and event handlers
   useEffect(() => {
     console.log(`🇮🇳 App starting at IST: ${ISTTimezoneHelper.getCurrentIST()}`);
 
-    // Initialize socket service
     socketService.connect();
 
-    // Set up socket event handlers
     socketService.onConnect(() => {
       console.log("Connected to server via Socket.IO");
       setSocketConnected(true);
@@ -89,22 +78,18 @@ function App() {
       setError(data.error);
     });
 
-    // Initial data fetch
     fetchInitialData();
 
-    // Cleanup on component unmount
     return () => {
       socketService.disconnect();
     };
   }, []);
 
-  // Function to fetch initial data from API
   const fetchInitialData = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      // Fetch jobs and system status in parallel
       const [jobsResponse, systemResponse] = await Promise.all([
         jobService.getAllJobs(),
         jobService.getSystemStatus(),
@@ -130,7 +115,6 @@ function App() {
     }
   };
 
-  // Function to create a new job
   const createJob = async (jobData) => {
     try {
       setLoading(true);
@@ -155,7 +139,6 @@ function App() {
     }
   };
 
-  // Function to delete a job
   const deleteJob = async (jobId) => {
     try {
       setLoading(true);
@@ -181,21 +164,17 @@ function App() {
     }
   };
 
-  // Function to refresh data manually
   const refreshData = () => {
     fetchInitialData();
   };
 
-  // Function to clear error
   const clearError = () => {
     setError(null);
   };
 
   return (
     <ErrorBoundary>
-      {/* Full width container */}
       <div className="min-h-screen bg-gray-100 w-full">
-        {/* Header with system status */}
         <Header
           jobCounts={{
             queued: jobs.queued?.length || 0,
@@ -206,9 +185,7 @@ function App() {
           onRefresh={refreshData}
         />
 
-        {/* Main content with full width */}
         <main className="w-full px-6 py-6">
-          {/* Error display */}
           {error && (
             <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
               <div className="flex justify-between items-start">
@@ -251,7 +228,6 @@ function App() {
             </div>
           )}
 
-          {/* Loading indicator */}
           {loading && (
             <div className="mb-6 flex justify-center">
               <div className="flex items-center">
@@ -261,16 +237,13 @@ function App() {
             </div>
           )}
 
-          {/* System Status Component */}
           <SystemStatus
             systemStatus={systemStatus}
             socketConnected={socketConnected}
             className="mb-8"
           />
 
-          {/* Main Layout: Job Form (Left) and Job Lists (Right) using Flexbox */}
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Left Side - Job Creation Form */}
             <div className="lg:w-1/2 w-full">
               <JobForm
                 onSubmit={createJob}
@@ -279,7 +252,6 @@ function App() {
               />
             </div>
 
-            {/* Right Side - Job Lists */}
             <div className="lg:w-1/2 w-full">
               <JobLists
                 jobs={jobs}
@@ -295,8 +267,7 @@ function App() {
         <footer className="bg-white border-t mt-12">
           <div className="w-full px-6 py-4">
             <p className="text-center text-gray-500 text-sm">
-              🇮🇳 Enhanced DAG Job Scheduling System - JavaScript & Shell Only -
-              Full Width Layout
+              by SYED MD FARHAN E AZAM
             </p>
           </div>
         </footer>

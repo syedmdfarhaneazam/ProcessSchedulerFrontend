@@ -1,12 +1,9 @@
-// Import individual job list components
 import QueuedJobList from "./QueuedJobList";
 import CompletedJobList from "./CompletedJobList";
 
-// JobLists component that manages both queued and completed job lists
 function JobLists({ jobs, onDelete, loading, onRefresh }) {
   return (
     <div className="space-y-8">
-      {/* Queued Jobs Section */}
       <div>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-900">
@@ -39,7 +36,6 @@ function JobLists({ jobs, onDelete, loading, onRefresh }) {
         />
       </div>
 
-      {/* Completed Jobs Section */}
       <div>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-gray-900">

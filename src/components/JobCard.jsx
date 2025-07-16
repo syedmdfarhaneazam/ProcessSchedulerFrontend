@@ -1,14 +1,11 @@
-// Enhanced JobCard component with IST timezone support and DAG features
 import ISTTimezoneHelper from "../utils/ISTTimezoneHelper";
 
 function JobCard({ job, type, onDelete, loading }) {
-  // Function to format date and time for IST display
   const formatDateTime = (dateString) => {
     if (!dateString) return "Not set";
     return ISTTimezoneHelper.formatIST(dateString);
   };
 
-  // Function to get priority display with color coding
   const getPriorityDisplay = (priority) => {
     const priorityMap = {
       0: { label: "High", color: "bg-red-100 text-red-800 border-red-200" },
@@ -34,7 +31,6 @@ function JobCard({ job, type, onDelete, loading }) {
     );
   };
 
-  // Function to get status display with appropriate styling
   const getStatusDisplay = (status) => {
     const statusMap = {
       queued: {
@@ -67,7 +63,6 @@ function JobCard({ job, type, onDelete, loading }) {
     );
   };
 
-  // Function to get code type display
   const getCodeTypeDisplay = (codeType) => {
     const typeMap = {
       python: { label: "Python", icon: "🐍", color: "text-blue-600" },
@@ -88,7 +83,6 @@ function JobCard({ job, type, onDelete, loading }) {
     );
   };
 
-  // Function to handle job deletion with confirmation
   const handleDelete = async (jobId, jobDescription) => {
     const confirmed = window.confirm(
       `Are you sure you want to delete the job "${jobDescription}"?\n\nThis action cannot be undone and may affect dependent jobs.`,
@@ -99,13 +93,11 @@ function JobCard({ job, type, onDelete, loading }) {
     }
   };
 
-  // Function to calculate time until job execution in IST
   const getTimeUntilExecution = (startTime) => {
     const timeDiff = ISTTimezoneHelper.getTimeDifferenceFromNow(startTime);
     return timeDiff.isInFuture ? timeDiff.humanReadable : "Ready to execute";
   };
 
-  // Function to get execution duration
   const getExecutionDuration = (executedAt, completedAt) => {
     if (!executedAt || !completedAt) return null;
     const start = new Date(executedAt);
@@ -121,7 +113,6 @@ function JobCard({ job, type, onDelete, loading }) {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow">
-      {/* Job Header */}
       <div className="flex justify-between items-start mb-4">
         <div className="flex-1">
           <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -141,7 +132,6 @@ function JobCard({ job, type, onDelete, loading }) {
             )}
           </div>
         </div>
-        {/* Delete Button */}
         <button
           onClick={() => handleDelete(job.id, job.description)}
           disabled={loading || job.status === "running"}
@@ -168,9 +158,7 @@ function JobCard({ job, type, onDelete, loading }) {
         </button>
       </div>
 
-      {/* Job Details Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        {/* Timing Information */}
         <div className="space-y-2">
           <div>
             <span className="text-sm font-medium text-gray-700">
@@ -213,7 +201,6 @@ function JobCard({ job, type, onDelete, loading }) {
           )}
         </div>
 
-        {/* Configuration Information */}
         <div className="space-y-2">
           {job.retryPolicy > 0 && (
             <div>
@@ -264,7 +251,6 @@ function JobCard({ job, type, onDelete, loading }) {
         </div>
       </div>
 
-      {/* Code Content Preview */}
       <div className="mb-4">
         <span className="text-sm font-medium text-gray-700">Code Preview:</span>
         <div className="mt-1 bg-gray-50 rounded-md p-3 border">
@@ -276,7 +262,6 @@ function JobCard({ job, type, onDelete, loading }) {
         </div>
       </div>
 
-      {/* Error Message (for failed jobs) */}
       {job.status === "failed" && job.errorMessage && (
         <div className="mb-4">
           <span className="text-sm font-medium text-red-700">
@@ -290,7 +275,6 @@ function JobCard({ job, type, onDelete, loading }) {
         </div>
       )}
 
-      {/* Job Footer with Additional Info */}
       <div className="flex justify-between items-center text-xs text-gray-500 pt-4 border-t border-gray-100">
         <span>🇮🇳 Created: {formatDateTime(job.createdAt)}</span>
         {job.status === "running" && (
